@@ -19,6 +19,6 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("challenges/", include("challenges.urls")) #these challenges are forwarded internally thanks to includes to
+    path("challenges/", include("challenges.urls")), #these challenges are forwarded internally thanks to includes to
     #the nested urls
 ]
