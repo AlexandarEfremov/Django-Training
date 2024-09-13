@@ -1,5 +1,6 @@
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse
 
 # Create your views here.
 
@@ -27,6 +28,18 @@ challenge_dict = {
 }
 
 
+def index(request):
+    list_items = ""
+    all_months = list(challenge_dict.keys())
+
+    for month in all_months:
+        month_path = reverse("month_challenge", args=[month])
+        list_items += f"<li><a href='{month_path}'>{month.capitalize()}</a><li>"
+
+    response_date = f"<ul>{list_items}</ul>"
+    return HttpResponse(response_date)
+
+
 def integer_months(request, month):
     all_months = list(challenge_dict.keys())  #firstly we need a list of all the keys in the dict
     if month > len(all_months): #then we check if the month is valid
@@ -42,4 +55,5 @@ def monthly_challenge(request, month):  # this can dynamically enter the text
     except:
         return HttpResponseNotFound("This month is not supported")
 
-#
+
+
