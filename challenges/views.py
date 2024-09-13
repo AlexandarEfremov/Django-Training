@@ -30,11 +30,11 @@ challenge_dict = {
 
 def index(request):
     list_items = ""
-    all_months = list(challenge_dict.keys())
+    all_months = list(challenge_dict.keys()) #we copy the code from our dict
 
     for month in all_months:
-        month_path = reverse("month_challenge", args=[month])
-        list_items += f"<li><a href='{month_path}'>{month.capitalize()}</a><li>"
+        month_path = reverse("month_challenge", args=[month]) # we use reverse() to construct the URL
+        list_items += f"<li><a href='{month_path}'>{month.capitalize()}</a><li>" #first letter is capped
 
     response_date = f"<ul>{list_items}</ul>"
     return HttpResponse(response_date)
