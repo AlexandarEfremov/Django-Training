@@ -1,8 +1,8 @@
 from django.urls import path, include
 
-from petstagram.petstagram.accounts import views
+from . import views
 
-urlpatterns = (
+urlpatterns = [
     path('register/', views.register, name="register"),
     path('login/', views.login, name="login"),
     path('profile/<int:pk>/', include([
@@ -10,4 +10,4 @@ urlpatterns = (
         path('edit/', views.profile_edit_page, name="profile-edit-page"),
         path('delete/', views.profile_delete_page, name="profile-delete-page")
     ])),
-)
+]
