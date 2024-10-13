@@ -1,5 +1,6 @@
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, resolve_url
+from pyperclip import copy
 
 from ..photos.models import Photo
 from ..common.models import Like
@@ -24,5 +25,11 @@ def like_functionality(request, photo_id):
     else:
         like = Like(to_photo=photo)
         like.save()
+
+    return redirect(request.META.get('HTTP_REFERER') + f"#{photo_id}")
+
+
+def copy_link_to_clipboard(request, photo_id):
+    copy(request.META['HTTP_HOST'] + resolve_url("photo-details-page", photo_id))
 
     return redirect(request.META['HTTP_REFERER'] + f"#{photo_id}")
