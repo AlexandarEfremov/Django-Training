@@ -15,6 +15,7 @@ class Pet(models.Model):
         unique=True,
         null=False,
         blank=True,
+        editable=False,
     )
 
     def save(self, *args, **kwargs):

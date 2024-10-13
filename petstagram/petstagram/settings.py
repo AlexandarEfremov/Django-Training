@@ -17,7 +17,8 @@ import os
 # to start
 load_dotenv()
 SECRET_KEY = os.getenv('PETSTAGRAM_SECRET_KEY')
-
+username = os.getenv('DB_USERNAME')
+password = os.getenv('DB_PASSWORD')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -85,9 +86,13 @@ WSGI_APPLICATION = 'petstagram.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "petstagram",
+        "USER": username,
+        "PASSWORD": password,
+        "HOST": "127.0.0.1",
+        "PORT": "5432",
     }
 }
 
