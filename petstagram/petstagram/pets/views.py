@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from .models import Pet
+from ..photos.models import Photo
 
 
 def pet_add_page(request):
@@ -6,7 +8,13 @@ def pet_add_page(request):
 
 
 def pet_details_page(request, username, pet_slug):
-    return render(request, template_name='pets/pet-details-page.html')
+    pet = Pet.objects.get(slug=pet_slug)
+    all_photos = pet.photo_set.all()
+    context = {
+        "pet": pet,
+        "all_photos": all_photos
+    }
+    return render(request, template_name='pets/pet-details-page.html', context=context)
 
 
 def pet_edit_page(request, username, pet_slug):
