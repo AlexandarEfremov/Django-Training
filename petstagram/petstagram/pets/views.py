@@ -1,10 +1,18 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Pet
 from ..photos.models import Photo
+from .forms import PetForm
 
 
 def pet_add_page(request):
-    return render(request, template_name='pets/pet-add-page.html')
+    form = PetForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        return redirect('profile-details-page', pk=1)#this is a random number for now
+    context ={
+        "form": form
+    }
+    return render(request, template_name='pets/pet-add-page.html', context=context)
 
 
 def pet_details_page(request, username, pet_slug):
