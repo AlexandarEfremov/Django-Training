@@ -18,3 +18,15 @@ class PetForm(forms.ModelForm):
             "personal_photo": "Link to Image",
         }
 
+
+class PetDeleteForm(forms.ModelForm):
+    class Meta:
+        model = Pet
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for _, field in self.fields.items():
+            field.widget.attrs['disabled'] = "disabled"
+            field.widget.attrs['readonly'] = "readonly"
+
