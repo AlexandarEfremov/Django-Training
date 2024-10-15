@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Photo
 from .forms import PhotoCreateForm, PhotoEditForm
+from ..common.forms import CommentForm
 
 
 def photo_add_page(request):
@@ -20,11 +21,13 @@ def photo_details_page(request, pk):
     photo = Photo.objects.get(pk=pk)
     likes = photo.like_set.all()
     comments = photo.comment_set.all()
+    comment_form = CommentForm()
 
-    context ={
+    context = {
         "photo": photo,
         "likes": likes,
         "comments": comments,
+        "comment_form": comment_form
     }
 
     return render(request, template_name='photos/photo-details-page.html', context=context)

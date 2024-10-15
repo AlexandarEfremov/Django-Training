@@ -2,15 +2,19 @@ from django.shortcuts import render, redirect
 from .models import Pet
 from ..photos.models import Photo
 from .forms import PetForm, PetDeleteForm
+from ..common.forms import CommentForm
 
 
 def pet_add_page(request):
     form = PetForm(request.POST or None)
+    comment_form = CommentForm()
+
     if form.is_valid():
         form.save()
         return redirect('profile-details-page', pk=1)#this is a random number for now
     context ={
-        "form": form
+        "form": form,
+        "comment_form": comment_form
     }
     return render(request, template_name='pets/pet-add-page.html', context=context)
 
@@ -18,9 +22,12 @@ def pet_add_page(request):
 def pet_details_page(request, username, pet_slug):
     pet = Pet.objects.get(slug=pet_slug)
     all_photos = pet.photo_set.all()
+    comment_form = CommentForm()
+
     context = {
         "pet": pet,
-        "all_photos": all_photos
+        "all_photos": all_photos,
+        "comment_form": comment_form
     }
     return render(request, template_name='pets/pet-details-page.html', context=context)
 
