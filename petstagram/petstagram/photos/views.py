@@ -1,9 +1,19 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Photo
+from .forms import PhotoCreateForm
 
 
 def photo_add_page(request):
-    return render(request, template_name='photos/photo-add-page.html')
+    form = PhotoCreateForm(request.POST or None, request.FILES or None)
+    if form.is_valid():
+        form.save()
+        return redirect("home-page")
+
+    context = {
+        "form": form
+    }
+
+    return render(request, template_name='photos/photo-add-page.html', context=context)
 
 
 def photo_details_page(request, pk):

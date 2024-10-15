@@ -7,6 +7,7 @@ from .validators import validate_field_size
 
 class Photo(models.Model):
     photo = models.ImageField(
+        upload_to="images",
         validators=[
             validate_field_size,
     ])
