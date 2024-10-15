@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Photo
-from .forms import PhotoCreateForm
+from .forms import PhotoCreateForm, PhotoEditForm
 
 
 def photo_add_page(request):
@@ -31,4 +31,24 @@ def photo_details_page(request, pk):
 
 
 def photo_edit_page(request, pk):
-    return render(request, template_name='photos/photo-edit-page.html')
+    photo = Photo.objects.get(pk=pk)
+    form = PhotoEditForm(request.POST or None, instance=photo)
+
+    if request.method == "POST":
+        if form.is_valid():
+            form.save()
+            return redirect("photo-details-page", pk)
+
+    context = {
+        "form": form,
+        "photo": photo
+    }
+
+    return render(request, template_name='photos/photo-edit-page.html', context=context)
+
+
+def photo_delete_page(request, pk):
+    photo = Photo.objects.get(pk=pk)
+    photo.delete()
+
+    return redirect("home-page")
