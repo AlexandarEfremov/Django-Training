@@ -35,7 +35,7 @@
 
     <!-- Start Pet Photo -->
     <div class="imgBx" id="{{ photo.pk }}">
-        <img src="{{ photo.photo.url }}" alt="post" class="cover">
+            <img src="{{ photo.photo.url }}" alt="post" class="cover">
     </div>
     <!-- End Pet Photo -->
 
@@ -93,7 +93,7 @@
         <div class="addComments">
 
             <!-- Start Add Comments Form -->
-            <form method="post" action="{% url 'comment' photo.id %}">
+            <form method="post" action="{% url 'comment' photo.pk %}">
                 {% csrf_token %}
                 {{ comment_form.as_p }}
                 <button type="submit">Post</button>

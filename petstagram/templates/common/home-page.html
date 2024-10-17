@@ -5,8 +5,7 @@
     <div class="col-9">
 
         <!-- Start Searchbar Form -->
-        <form class="searchbar" method="post">
-            {% csrf_token %}
+        <form class="searchbar" method="get">
             {{ search_form }}
             <button>
                 <img src="{% static 'images/search.png' %}" height="18" alt="img2">

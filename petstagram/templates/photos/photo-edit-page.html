@@ -8,7 +8,7 @@
     <!-- Starts Edit Photo Form -->
     <form method="post" action="">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form }}
         <!-- Edit Photo Button -->
         <button class="edit-btn" type="submit">Edit Photo</button>
     </form>

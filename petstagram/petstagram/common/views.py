@@ -51,7 +51,7 @@ def add_comment(request, photo_id):
         form = CommentForm(request.POST)
 
         if form.is_valid():
-            comment = form.save(commit=False)
+            comment = form.save(commit=False) #we want to take the comment and relate it to the photo
             comment.to_photo = photo
             comment.save()
 
