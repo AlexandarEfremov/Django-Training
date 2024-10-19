@@ -3,10 +3,10 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path('add/', views.pet_add_page, name="pet-add-page"),
+    path('add/', views.AddPetView.as_view(), name="pet-add-page"),
     path('<str:username>/pet/<slug:pet_slug>/', include([
-        path('', views.pet_details_page, name="pet-details-page"),
-        path('edit/', views.pet_edit_page, name="pet-edit-page"),
-        path('delete/', views.pet_delete_page, name="pet-delete-page")
+        path('', views.PetDetailsView.as_view(), name="pet-details-page"),
+        path('edit/', views.EditPetView, name="pet-edit-page"),
+        path('delete/', views.DeletePetView.as_view(), name="pet-delete-page")
     ])),
 ]
