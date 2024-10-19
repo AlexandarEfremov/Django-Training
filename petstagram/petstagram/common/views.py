@@ -11,13 +11,13 @@ from django.views.generic import ListView
 class HomePageView(ListView):
     model = Photo
     template_name = "common/home-page.html"
-    context_object_name = "page_obj"
+    context_object_name = "page_obj" #this tells django which is the name we want to use by default it's object_list
     paginate_by = 1
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs): #this is how we can access the forms
         context = super().get_context_data(**kwargs)
         context["comment_form"] = CommentForm()
-        context["search_form"] = SearchForm(self.request.GET)
+        context["search_form"] = SearchForm(self.request.GET) #so that the search request doesn't disappear
         return context
 
     def get_queryset(self):

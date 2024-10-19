@@ -44,7 +44,8 @@ class PetDetailsView(DetailView):
     model = Pet
     template_name = "pets/pet-details-page.html"
     context_object_name = "pet"
-    slug_url_kwarg = "pet_slug"
+    slug_url_kwarg = "pet_slug" #this basically tells django that the dynamic value name is pet_slug, as by default
+    #it's slug, which might break the code
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -126,7 +127,7 @@ class DeletePetView(DeleteView):
         context["form"] = PetDeleteForm(initial=self.object.__dict__)
 
     def delete(self, request, *args, **kwargs):
-        pet=self.get_object()
+        pet = self.get_object()
         pet.delete()
         return redirect(self.success_url)
 
