@@ -30,7 +30,8 @@ load_dotenv()
 
 SECRET_KEY = os.getenv('SECRET_KEY')
 password = os.getenv('DB_PASSWORD')
-
+db_name = os.getenv('DB_NAME')
+db_pass = os.getenv('DB_PASS')
 ALLOWED_HOSTS = []
 
 
@@ -80,9 +81,13 @@ WSGI_APPLICATION = 'my_music_app.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "my_music_app",
+        "USER": db_name,
+        "PASSWORD": db_pass,
+        "HOST": "127.0.0.1",
+        "PORT": "5432",
     }
 }
 
