@@ -62,11 +62,12 @@
                             <i>Profile</i>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="#">
+                    <form action="{% url 'logout' %}" method="post">
+                        {% csrf_token %}
+                        <button class="button" type="submit">
                             <i>Logout</i>
-                        </a>
-                    </li>
+                        </button>
+                    </form>
                 </ul>
             </div>
         </div>

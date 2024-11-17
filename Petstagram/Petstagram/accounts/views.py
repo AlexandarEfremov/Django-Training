@@ -28,6 +28,8 @@ class AppUserLoginView(auth_views.LoginView):
         profile_instance, _ = Profile.objects.get_or_create(user=self.request.user)
         return HttpResponseRedirect(self.get_success_url())
 
+class AppUserLogoutView(auth_views.LogoutView):
+    pass
 class ProfileDetailsPage(TemplateView):
     template_name = "accounts/profile-details-page.html"
 

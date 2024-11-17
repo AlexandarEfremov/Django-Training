@@ -8,7 +8,7 @@
             <h1>Petstagram</h1>
 
             <!-- Start Login Form-->
-            <form method="post">
+            <form action="{% url 'login' %}" method="post">
                 {% csrf_token %}
                 {{ form.username|placeholder:"Email" }}
                 {{ form.password|placeholder:"Password" }}
@@ -21,7 +21,7 @@
         <div class="second-option">
 
             <!-- Link to Register Page-->
-            <p>Don't have an account? <a href="#">Register</a></p>
+            <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
         </div>
     </div>
     <!-- End Login Section-->
