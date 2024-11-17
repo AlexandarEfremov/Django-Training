@@ -32,7 +32,7 @@ class Profile(models.Model):
     user = models.OneToOneField(
         UserModel,
         on_delete=models.CASCADE,
-        primary_key=True,
+        primary_key=True, #This tells django to treat user as a PK identifier
     )
     first_name = models.CharField(
         max_length=30,

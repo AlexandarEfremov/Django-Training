@@ -29,3 +29,6 @@ class Photo(models.Model):
     date_of_publication = models.DateField(
         auto_now=True, #can be updated
     )
+
+    class Meta:
+        ordering = ['-date_of_publication']

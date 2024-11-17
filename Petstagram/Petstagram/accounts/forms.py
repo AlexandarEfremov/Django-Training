@@ -2,6 +2,8 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm, AuthenticationForm
 
+from Petstagram.accounts.models import Profile
+
 UserModel = get_user_model()
 
 
@@ -15,7 +17,7 @@ class AppUserCreationForm(UserCreationForm):
         fields = ('email',)
 
 class AppUserLoginForm(AuthenticationForm):
-    email = forms.EmailField(
+    username = forms.EmailField(
         widget=forms.EmailInput(
             attrs={"autofocus": True}
         )
@@ -27,3 +29,20 @@ class AppUserLoginForm(AuthenticationForm):
             attrs={"autocomplete": "current-password"}
         ),
     )
+
+class ProfileEditForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = [
+            "first_name",
+            "last_name",
+            "date_of_birth",
+            "profile_picture",
+        ]
+        labels = {
+            "first_name": "First Name",
+            "last_name": "Last Name",
+            "date_of_birth": "Date of Birth",
+            "profile_picture": "Profile Picture",
+        }
+
