@@ -1,20 +1,25 @@
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
+
 from .models import Photo
 from .forms import PhotoCreateForm, PhotoEditForm
 from ..common.forms import CommentForm
 
 
-def photo_add_page(request):
-    form = PhotoCreateForm(request.POST or None, request.FILES or None)
-    if form.is_valid():
-        form.save()
-        return redirect("home-page")
+class PhotoAddPage(CreateView):
+    model = Photo
+    template_name = "photos/photo-add-page.html"
+    form_class = PhotoCreateForm
+    success_url = reverse_lazy("home-page")
 
-    context = {
-        "form": form
-    }
+    def form_valid(self, form):
+        photo = form.save(commit=False)
+        photo.user = self.request.user
+        photo.save()
 
-    return render(request, template_name='photos/photo-add-page.html', context=context)
+        form.save_m2m()
+        return super().form_valid(form)
 
 
 def photo_details_page(request, pk):
