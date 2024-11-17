@@ -31,12 +31,12 @@ class HomePageView(ListView):
 
 def like_functionality(request, photo_id):
     photo = Photo.objects.get(id=photo_id)
-    liked_object = Like.objects.filter(to_photo_id=photo).first()
+    liked_object = Like.objects.filter(to_photo_id=photo, user=request.user).first()
 
     if liked_object:
         liked_object.delete()
     else:
-        like = Like(to_photo=photo)
+        like = Like(to_photo=photo, user=request.user)
         like.save()
 
     return redirect(request.META.get('HTTP_REFERER') + f"#{photo_id}")
@@ -56,6 +56,7 @@ def add_comment(request, photo_id):
         if form.is_valid():
             comment = form.save(commit=False) #we want to take the comment and relate it to the photo
             comment.to_photo = photo
+            comment.user = request.user
             comment.save()
 
         return redirect(request.META["HTTP_REFERER"] + f"#{photo_id}")
